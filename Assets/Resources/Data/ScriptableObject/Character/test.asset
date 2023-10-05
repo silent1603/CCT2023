@@ -9,6 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4c9746edd4a5e24480870cc49839355, type: 3}
-  m_Name: New Event
+  m_Script: {fileID: 11500000, guid: 2754101621a82a44b836be5063cf5fb4, type: 3}
+  m_Name: test
   m_EditorClassIdentifier: 
+  charName: test
+  health: 2
+  armor: 5
+  baseSpeed: 2
+  maxSpeed: 6
+  acceleration: 7

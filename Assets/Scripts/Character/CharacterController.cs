@@ -4,26 +4,47 @@ using UnityEngine;
 
 public class CharacterController : MonoBehaviour
 {
-    public float speed = 5f;
+    public Character character;
+    public CharacterAnimator anim;
 
-    // Start is called before the first frame update
-    void Start()
+    Vector3 _dir;
+    bool _isMoving;
+
+    void Awake()
     {
-        
+        character = GetComponent<Character>();
+        anim = GetComponentInChildren<CharacterAnimator>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        Movement();
+        HandleInput();
+        HandleMovement();
     }
 
-    void Movement()
+    void HandleInput()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
-        Vector3 dir = new Vector2 (horizontal, vertical).normalized;
-
-        gameObject.transform.position += dir * speed * Time.deltaTime;
+        _dir = new Vector2(horizontal, vertical).normalized;
     }
+
+    void HandleMovement()
+    {
+        gameObject.transform.position += _dir * character.Speed * Time.deltaTime;
+
+        if(_dir.x != 0)
+        {
+            anim.MoveX = _dir.x;
+
+            if (_dir.x > 0) anim.FlipSprite(false);
+            else anim.FlipSprite(true);
+        }
+
+        if (_dir != Vector3.zero) _isMoving = true;
+        else _isMoving = false;
+
+        anim.IsMoving = _isMoving;
+    }
+
 }

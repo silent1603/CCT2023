@@ -20,8 +20,7 @@ public class WeaponSO : ScriptableObject
     public int baseAmmo;
     public float reloadSpeed;
     public int bulletPerShot;
-
-    [Space(20)]
+    public float bulletSpreadCone;
 
 
 }
