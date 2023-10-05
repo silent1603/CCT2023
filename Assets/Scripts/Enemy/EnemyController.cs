@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public Transform player;
+
+    public float currentSpeed = 0;
+    public float maxSpeed = 2, acceleration = 50, deacceleration = 100;
+
+    private void SetDestination()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

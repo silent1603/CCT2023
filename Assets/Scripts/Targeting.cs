@@ -66,7 +66,7 @@ public class Targeting : MonoBehaviour
             }
             priorityTarget = targets[targetIndex];
 
-            print(priorityTarget.name);
+            //print(priorityTarget.name);
 
             Debug.DrawLine(transform.position, targets[targetIndex].transform.position, Color.green);
         }
