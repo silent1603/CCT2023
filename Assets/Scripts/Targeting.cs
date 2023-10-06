@@ -17,7 +17,7 @@ public class Targeting : MonoBehaviour
     [SerializeField] float lookSpeed = 3f;
 
     public LayerMask layerMask;
-    
+
 
     [SerializeField] float radius = 5f;
 
@@ -40,36 +40,37 @@ public class Targeting : MonoBehaviour
             priorityTarget = null;
             return;
         }
-        if (hitColliders.Length > 0)
+
+        foreach (Collider2D c in hitColliders)
         {
-            foreach (Collider2D c in hitColliders)
-            {
-                //print(gameObject.name);
-                targets.Add(c.transform.gameObject);
-            }
-
-            float minDist = Vector2.Distance(transform.position, targets[0].transform.position);
-            int targetIndex = 0;
-
-            for (int i = 0; i < targets.Count; i++)
-            {
-
-                float dist = Vector2.Distance(transform.position, targets[i].transform.position);
-
-                Debug.DrawLine(transform.position, targets[i].transform.position, Color.red);
-
-                if (minDist > dist)
-                {
-                    minDist = dist;
-                    targetIndex = i;
-                }               
-            }
-            priorityTarget = targets[targetIndex];
-
-            print(priorityTarget.name);
-
-            Debug.DrawLine(transform.position, targets[targetIndex].transform.position, Color.green);
+            //print(gameObject.name);
+            targets.Add(c.transform.gameObject);
         }
+
+        float minDist = Vector2.Distance(transform.position, targets[0].transform.position);
+        int targetIndex = 0;
+
+        for (int i = 0; i < targets.Count; i++)
+        {
+
+            float dist = Vector2.Distance(transform.position, targets[i].transform.position);
+
+#if UNITY_EDITOR
+            Debug.DrawLine(transform.position, targets[i].transform.position, Color.red);
+#endif
+            if (minDist > dist)
+            {
+                minDist = dist;
+                targetIndex = i;
+            }
+        }
+        priorityTarget = targets[targetIndex];
+
+        print(priorityTarget.name);
+
+#if UNITY_EDITOR
+        Debug.DrawLine(transform.position, targets[targetIndex].transform.position, Color.green);
+#endif
 
         GunLookat();
     }
