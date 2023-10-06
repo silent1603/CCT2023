@@ -26,6 +26,7 @@ public class BulletController : MonoBehaviour
         {
             var dmg = collision.gameObject.GetComponent<IDamageable>();
             dmg.TakeDamage(damage);
+            Destroy(gameObject);
         }
     }
 }

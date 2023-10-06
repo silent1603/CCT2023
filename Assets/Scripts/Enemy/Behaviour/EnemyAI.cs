@@ -86,7 +86,6 @@ public class EnemyAI : MonoBehaviour, IDamageable
         if (aiData.currentTarget == null)
         {
             //Stopping Logic
-            //Debug.Log("Stopping");
             movementInput = Vector2.zero;
             following = false;
             yield break;

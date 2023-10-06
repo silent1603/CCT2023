@@ -50,8 +50,7 @@ public class Gun : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            print("............");
-            ShootWeapon();
+            StartCoroutine(FireRate());
         }
     }
 
@@ -65,9 +64,9 @@ public class Gun : MonoBehaviour
 
         BulletController go = Instantiate(bulletPrefab, pos, spawnPoint.transform.rotation);
         go.damage = _damage;
-        var rb = go.GetComponent<Rigidbody>();
+        var rb = go.GetComponent<Rigidbody2D>();
 
-        rb.velocity = this.transform.right * _bulletSpeed;
+        rb.velocity = transform.right * _bulletSpeed;
     }
 
     public IEnumerator FireRate()

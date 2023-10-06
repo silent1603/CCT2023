@@ -10,4 +10,9 @@ public class AIData : MonoBehaviour
     public Transform currentTarget;
 
     public int GetTargetsCount() => targets == null ? 0 : targets.Count;
+
+    public void Start()
+    {
+        currentTarget = AIDirector.Instance.player;
+    }
 }
