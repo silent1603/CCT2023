@@ -3,8 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class EnemyAI : MonoBehaviour
+public class EnemyAI : MonoBehaviour, IDamageable
 {
+    public EnemySO enemySO;
+
+    #region STAT
+    int _health;
+
+    #endregion STAT
+
     [SerializeField]
     private List<SteeringBehaviour> steeringBehaviours;
 
@@ -35,7 +42,13 @@ public class EnemyAI : MonoBehaviour
     private void Start()
     {
         //Detecting Player and Obstacles around
+        Init();
         InvokeRepeating("PerformDetection", 0, detectionDelay);
+    }
+
+    public void Init()
+    {
+        _health = enemySO.health;
     }
 
     private void PerformDetection()
@@ -100,5 +113,29 @@ public class EnemyAI : MonoBehaviour
 
         }
 
+    }
+
+    public GameObject GetGameObject()
+    {
+        return gameObject;
+    }
+
+    public void Heal(int value)
+    {
+        //TODO: maybe regain health?
+    }
+
+    public void TakeDamage(int value)
+    {
+        if(_health <= 0)
+        {
+            //TODO: unsub from update behaviour event
+            //TODO: call to the AIDirector to remove self from the list.
+
+            _health = 0;
+            Destroy(gameObject);
+        }
+
+        _health -= value;
     }
 }

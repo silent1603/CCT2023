@@ -5675,10 +5675,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1576367529}
     m_Modifications:
-    - target: {fileID: 4589156677545358884, guid: 592c3cb22f9e881408efddddaad38d7f, type: 3}
-      propertyPath: obstaclesLayerMask.m_Bits
-      value: 384
-      objectReference: {fileID: 0}
     - target: {fileID: 5665095655558024533, guid: 592c3cb22f9e881408efddddaad38d7f, type: 3}
       propertyPath: m_Name
       value: Enemy
@@ -5687,14 +5683,6 @@ PrefabInstance:
       propertyPath: currentTarget
       value: 
       objectReference: {fileID: 958166609}
-    - target: {fileID: 6948829563312171804, guid: 592c3cb22f9e881408efddddaad38d7f, type: 3}
-      propertyPath: m_GravityScale
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7466933542104293366, guid: 592c3cb22f9e881408efddddaad38d7f, type: 3}
-      propertyPath: layerMask.m_Bits
-      value: 320
-      objectReference: {fileID: 0}
     - target: {fileID: 7893948277199823927, guid: 592c3cb22f9e881408efddddaad38d7f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.2

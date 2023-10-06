@@ -13,5 +13,11 @@ public class EnemySO : ScriptableObject
 {
 
     //TODO:
+    public string charName;
+    public int health;
+    public int armor;
+    public float baseSpeed;
+    public float maxSpeed;
+    public float acceleration;
 
 }

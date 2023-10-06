@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TargetDetector : Detector
 {
+    private Transform _player;
+
     [SerializeField]
     private float targetDetectionRange = 5;
 
@@ -19,8 +21,7 @@ public class TargetDetector : Detector
     public override void Detect(AIData aiData)
     {
         //Find out if player is near
-        Collider2D playerCollider = 
-            Physics2D.OverlapCircle(transform.position, targetDetectionRange, playerLayerMask);
+        Collider2D playerCollider = Physics2D.OverlapCircle(transform.position, targetDetectionRange, playerLayerMask);
 
         if (playerCollider != null)
         {
@@ -32,7 +33,9 @@ public class TargetDetector : Detector
             //Make sure that the collider we see is on the "Player" layer
             if (hit.collider != null && (playerLayerMask & (1 << hit.collider.gameObject.layer)) != 0)
             {
+#if UNITY_EDITOR
                 Debug.DrawRay(transform.position, direction * targetDetectionRange, Color.magenta);
+#endif
                 colliders = new List<Transform>() { playerCollider.transform };
             }
             else
@@ -48,6 +51,7 @@ public class TargetDetector : Detector
         aiData.targets = colliders;
     }
 
+#if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {
         if (showGizmos == false)
@@ -63,4 +67,5 @@ public class TargetDetector : Detector
             Gizmos.DrawSphere(item.position, 0.3f);
         }
     }
+#endif
 }

@@ -341,7 +341,7 @@ MonoBehaviour:
   targetDetectionRange: 25
   obstaclesLayerMask:
     serializedVersion: 2
-    m_Bits: 448
+    m_Bits: 384
   playerLayerMask:
     serializedVersion: 2
     m_Bits: 128
@@ -460,6 +460,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b01b33b919b91384dbfaf3060fd6e6a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemySO: {fileID: 11400000, guid: 146994d479b35b44aa774b304eb11ac8, type: 2}
   steeringBehaviours:
   - {fileID: 8331087792943205874}
   - {fileID: 5775557771018211709}
@@ -521,7 +522,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -631,7 +632,7 @@ MonoBehaviour:
   detectionRadius: 4
   layerMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 320
   showGizmos: 1
 --- !u!1 &8638698368272021674
 GameObject:

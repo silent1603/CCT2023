@@ -28,12 +28,12 @@ public class Enemy : MonoBehaviour, IDamageable
         return this.gameObject;
     }
 
-    public void Heal(float value)
+    public void Heal(int value)
     {
         
     }
 
-    public void TakeDamage(float value)
+    public void TakeDamage(int value)
     {
         if(curHealth <= 0) Destroy(gameObject);
 

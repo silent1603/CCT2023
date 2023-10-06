@@ -12,3 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e506f8d97c3090643b9ee0be7301c68e, type: 3}
   m_Name: test
   m_EditorClassIdentifier: 
+  charName: 
+  health: 3
+  armor: 0
+  baseSpeed: 2
+  maxSpeed: 5
+  acceleration: 0.5

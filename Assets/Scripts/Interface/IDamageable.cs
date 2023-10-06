@@ -3,7 +3,7 @@ using UnityEngine;
 
 public interface IDamageable
 {
-    void TakeDamage(float value);
-    void Heal(float value);
+    void TakeDamage(int value);
+    void Heal(int value);
     GameObject GetGameObject();
 }

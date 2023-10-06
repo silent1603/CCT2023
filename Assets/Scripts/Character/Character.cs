@@ -49,13 +49,14 @@ public class Character : MonoBehaviour, IDamageable
         return this.gameObject;
     }
 
-    public void Heal(float value)
+    public void Heal(int value)
     {
         //TODO: increase health
     }
 
-    public void TakeDamage(float value)
+    public void TakeDamage(int value)
     {
         //TODO: decrease health
+        //TODO: game over when health = 0
     }
 }
