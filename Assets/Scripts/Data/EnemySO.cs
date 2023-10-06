@@ -18,7 +18,7 @@ public class EnemySO : ScriptableObject
     public int armor;
 
     public int expDrop;
-    public float baseSpeed;
+    public int baseSpeed;
     public float maxSpeed;
     public float acceleration;
 

@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class CharacterController : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
-    public Character character;
+    public Player character;
     public CharacterAnimator anim;
     public PlayerInput playerInput;
-    private Vector2 rawInputMovement;
-    private Vector2 smoothInputMovement;
     public float movementSmoothingSpeed = 0.7f;
 
     Vector3 _dir;
@@ -17,7 +15,7 @@ public class CharacterController : MonoBehaviour
 
     void Awake()
     {
-        character = GetComponent<Character>();
+        character = GetComponent<Player>();
         anim = GetComponentInChildren<CharacterAnimator>();
     }
 
