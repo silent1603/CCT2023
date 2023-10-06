@@ -6,17 +6,14 @@ using UnityEngine.Events;
 public class EnemyAI : MonoBehaviour, IDamageable
 {
     public EnemySO enemySO;
+    Transform _player;
+    Rigidbody2D _rb;
 
     #region STAT
     int _health;
+    int _speed;
 
     #endregion STAT
-
-    [SerializeField]
-    private List<SteeringBehaviour> steeringBehaviours;
-
-    [SerializeField]
-    private List<Detector> detectors;
 
     [SerializeField]
     private AIData aiData;
@@ -28,14 +25,11 @@ public class EnemyAI : MonoBehaviour, IDamageable
     private float attackDistance = 0.5f;
 
     //Inputs sent from the Enemy AI to the Enemy controller
-    public UnityEvent OnAttackPressed;
-    public UnityEvent<Vector2> OnMovementInput, OnPointerInput;
+    public UnityEvent OnAttack;
+    public UnityEvent<Vector2> OnMovement, OnPointer;
 
     [SerializeField]
     private Vector2 movementInput;
-
-    [SerializeField]
-    private ContextSolver movementDirectionSolver;
 
     bool following = false;
 
@@ -43,75 +37,33 @@ public class EnemyAI : MonoBehaviour, IDamageable
     {
         //Detecting Player and Obstacles around
         Init();
-        InvokeRepeating("PerformDetection", 0, detectionDelay);
+        //InvokeRepeating("PerformDetection", 0, detectionDelay);
     }
 
     public void Init()
     {
-        _health = enemySO.health;
-    }
+        _rb = GetComponent<Rigidbody2D>();
 
-    private void PerformDetection()
-    {
-        foreach (Detector detector in detectors)
-        {
-            detector.Detect(aiData);
-        }
+        _health = enemySO.health;
+        _speed = enemySO.baseSpeed;
+
+        _player = AIDirector.Instance.player;
     }
 
     private void Update()
     {
-        //Enemy AI movement based on Target availability
-        if (aiData.currentTarget != null)
-        {
-            //Looking at the Target
-            OnPointerInput?.Invoke(aiData.currentTarget.position);
-            if (following == false)
-            {
-                following = true;
-                StartCoroutine(ChaseAndAttack());
-            }
-        }
-        else if (aiData.GetTargetsCount() > 0)
-        {
-            //Target acquisition logic
-            aiData.currentTarget = aiData.targets[0];
-        }
-        //Moving the Agent
-        OnMovementInput?.Invoke(movementInput);
-    }
+        Vector3 dir = _player.position - transform.position;
+        dir = dir.normalized;
 
-    private IEnumerator ChaseAndAttack()
-    {
-        if (aiData.currentTarget == null)
+        if (Vector2.Distance(_player.position, transform.position) > 1.0f)
         {
-            //Stopping Logic
-            movementInput = Vector2.zero;
-            following = false;
-            yield break;
+            //transform.position += (displacement * _speed * Time.deltaTime);
+            _rb.velocity = dir * _speed;
         }
         else
         {
-            float distance = Vector2.Distance(aiData.currentTarget.position, transform.position);
-
-            if (distance < attackDistance)
-            {
-                //Attack logic
-                movementInput = Vector2.zero;
-                OnAttackPressed?.Invoke();
-                yield return new WaitForSeconds(attackDelay);
-                StartCoroutine(ChaseAndAttack());
-            }
-            else
-            {
-                //Chase logic
-                movementInput = movementDirectionSolver.GetDirectionToMove(steeringBehaviours, aiData);
-                yield return new WaitForSeconds(aiUpdateDelay);
-                StartCoroutine(ChaseAndAttack());
-            }
-
+            //do whatever the enemy has to do with the player
         }
-
     }
 
     public GameObject GetGameObject()
