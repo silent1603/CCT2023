@@ -127,7 +127,9 @@ public class EnemyAI : MonoBehaviour, IDamageable
 
     public void TakeDamage(int value)
     {
-        if(_health <= 0)
+        print("damage = " + value);
+
+        if (_health <= 0)
         {
             //TODO: unsub from update behaviour event
             //TODO: call to the AIDirector to remove self from the list.

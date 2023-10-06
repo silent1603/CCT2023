@@ -1,54 +1,121 @@
-﻿using System.Collections;
+﻿using DG.Tweening.Core.Easing;
+using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Gun : MonoBehaviour
 {
+    private Targeting _targeting;
+
     public WeaponSO thisGun; 
-    public GameObject bulletPrefab;
-    public Transform firePoint;
-    private int bulletsFired = 0;
-    private bool isFiring = false;
+    public BulletController bulletPrefab;
+    public Transform spawnPoint;
+
+    [Header("Ammo")]
+    public int curAmmo;
+    public bool infiniteAmmo = false;
+    public float damage = 2;
+
+    [Header("Weapon Attributes")]
+    int _damage;
+    int _ammo;
+    float _bulletSpeed;
+    float _reloadSpeed;
+    float _fireRate;
+    public LayerMask detectionLayer;
+    public Transform bulletSpawnPoint;
+
+    public bool canFire = true;
+    public bool outOfAmmo = false;
 
     void Start()
     {
-        StartCoroutine(FireBurst());
+        _targeting = GetComponentInParent<Targeting>();
+
+        _damage = thisGun.baseDamage;
+        _bulletSpeed = thisGun.bulletSpeed;
+        _reloadSpeed = thisGun.reloadSpeed;
+        _ammo = thisGun.baseAmmo;
+        _fireRate = thisGun.fireRate;
+
+        //StartCoroutine(FireBurst());
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!isFiring)
+        //if (_targeting.priorityTarget == null) return;
+
+        if(Input.GetKeyDown(KeyCode.Space))
         {
-            StartCoroutine(FireBurst());
+            print("............");
+            ShootWeapon();
         }
     }
-    IEnumerator FireBurst()
+
+    public void ShootWeapon()
     {
-        isFiring = true;
-        bulletsFired = 0;
+        canFire = false;
 
-        while (bulletsFired < thisGun.baseAmmo)
-        {
-            FireBullet();
-            bulletsFired++;
-            yield return new WaitForSeconds(thisGun.fireRate);
-        }
+        Vector3 pos = bulletSpawnPoint.position;
+        curAmmo--;
+        //UpdateUI();
 
-        yield return new WaitForSeconds(thisGun.reloadSpeed); // Chờ 1 giây trước khi cho phép bắn tiếp
-        isFiring = false;
+        BulletController go = Instantiate(bulletPrefab, pos, spawnPoint.transform.rotation);
+        go.damage = _damage;
+        var rb = go.GetComponent<Rigidbody>();
+
+        rb.velocity = this.transform.right * _bulletSpeed;
     }
 
-    void FireBullet()
+    public IEnumerator FireRate()
     {
-        GameObject newBullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-
-        // Kiểm tra và đánh dấu viên đạn cần xóa sau một khoảng thời gian
-        BulletController bulletController = newBullet.GetComponent<BulletController>();
-        if (bulletController != null)
+        while (!outOfAmmo)
         {
-            bulletController.damage = thisGun.baseDamage;
-            bulletController.shouldDestroy = true;
+            ShootWeapon();
+            float timeToNextFire = 1 / (_fireRate / 60);
+            yield return new WaitForSeconds(timeToNextFire);
         }
+
     }
+
+    public void ReloadSystem()
+    {
+        if (curAmmo == _ammo) return;
+
+        if (infiniteAmmo)
+        {
+            curAmmo = _ammo;
+
+            outOfAmmo = false;
+            //UpdateUI();
+            return;
+        }
+
+        outOfAmmo = false;
+        //UpdateUI();
+    }
+
+    //public void UpdateUI()
+    //{
+    //    weaponName_txt.text = weaponData.WeaponName;
+
+    //    if (weaponData.WeaponSprite != null)
+    //    {
+    //        weaponImage.sprite = weaponData.WeaponSprite;
+    //    }
+    //    else
+    //    {
+    //        weaponImage.sprite = null;
+    //    }
+
+    //    curAmmo_txt.text = curAmmo.ToString();
+
+    //    if (infiniteAmmo)
+    //        reserveAmmo_txt.text = "Inifinite";
+    //    else
+    //        reserveAmmo_txt.text = "/ " + reserveAmmo.ToString();
+    //}
 }

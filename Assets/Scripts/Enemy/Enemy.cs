@@ -35,6 +35,8 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public void TakeDamage(int value)
     {
+        print("damage = " + value);
+
         if(curHealth <= 0) Destroy(gameObject);
 
         curHealth--;

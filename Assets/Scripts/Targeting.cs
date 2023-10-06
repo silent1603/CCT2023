@@ -9,7 +9,7 @@ public class Targeting : MonoBehaviour
     //public Material normalMat;
     //public Material inRangeMat;
 
-    [SerializeField] GameObject priorityTarget;
+    public GameObject priorityTarget;
     [SerializeField] List<GameObject> targets;
     [SerializeField] float[] distances;
     [SerializeField] float shortestDis = Mathf.Infinity;

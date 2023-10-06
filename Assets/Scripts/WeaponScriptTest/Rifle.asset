@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponType: 3
   fireRate: 0.5
-  bulletSpeed: 40
+  bulletSpeed: 20
   baseAmmo: 45
   reloadSpeed: 7
   bulletPerShot: 1
