@@ -1,4 +1,4 @@
-using Utils;
+using Utils.DesignPattern;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]

@@ -1,18 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utils.DesignPattern;
 
-public class ThreadPool : MonoBehaviour
+public class ThreadPool : Singleton<ThreadPool>
 {
-    // Start is called before the first frame update
+    private const int MAX = 5;
+    private const int MIN = 3;
     void Start()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }
