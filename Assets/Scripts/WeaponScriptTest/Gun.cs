@@ -47,6 +47,7 @@ public class Gun : MonoBehaviour
         BulletController bulletController = newBullet.GetComponent<BulletController>();
         if (bulletController != null)
         {
+            bulletController.damage = thisGun.baseDamage;
             bulletController.shouldDestroy = true;
         }
     }

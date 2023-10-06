@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour
 {
+    public int damage;
     public float speed;
     public GameObject gun;
     public float maxDistance;
@@ -12,6 +13,16 @@ public class BulletController : MonoBehaviour
     void Start()
     {
         startPosition = gun.transform.position;
+    }
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.collider.tag == "Agent")
+        {
+            var dmg = collision.gameObject.GetComponent<IDamageable>();
+            dmg.TakeDamage(damage);
+        }
     }
 
     // Update is called once per frame

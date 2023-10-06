@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Rifle
   m_EditorClassIdentifier: 
   weaponType: 3
-  fireRate: 1
+  fireRate: 0.5
   bulletSpeed: 40
-  baseAmmo: 12
+  baseAmmo: 45
   reloadSpeed: 7
   bulletPerShot: 1
-  baseDamage: 50
+  baseDamage: 5

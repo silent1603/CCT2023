@@ -23,7 +23,7 @@ public class CharacterController : MonoBehaviour
 
     void Update()
     {
-        //HandleInput();
+        HandleInput();
         HandleMovement();
     }
 

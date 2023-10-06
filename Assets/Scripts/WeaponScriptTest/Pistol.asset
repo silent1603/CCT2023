@@ -18,4 +18,4 @@ MonoBehaviour:
   baseAmmo: 6
   reloadSpeed: 2
   bulletPerShot: 1
-  baseDamage: 20
+  baseDamage: 2
