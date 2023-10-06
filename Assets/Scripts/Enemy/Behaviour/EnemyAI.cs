@@ -8,6 +8,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
     public EnemySO enemySO;
     Transform _player;
     Rigidbody2D _rb;
+    public LayerMask playerLayer;
 
     #region STAT
     int _health;
@@ -26,7 +27,6 @@ public class EnemyAI : MonoBehaviour, IDamageable
 
     //Inputs sent from the Enemy AI to the Enemy controller
     public UnityEvent OnAttack;
-    public UnityEvent<Vector2> OnMovement, OnPointer;
 
     [SerializeField]
     private Vector2 movementInput;
@@ -35,9 +35,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
 
     private void Start()
     {
-        //Detecting Player and Obstacles around
         Init();
-        //InvokeRepeating("PerformDetection", 0, detectionDelay);
     }
 
     public void Init()
@@ -50,19 +48,31 @@ public class EnemyAI : MonoBehaviour, IDamageable
         _player = AIDirector.Instance.player;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         Vector3 dir = _player.position - transform.position;
         dir = dir.normalized;
 
-        if (Vector2.Distance(_player.position, transform.position) > 1.0f)
+        if (Vector2.Distance(_player.position, transform.position) > attackDistance)
         {
-            //transform.position += (displacement * _speed * Time.deltaTime);
             _rb.velocity = dir * _speed;
         }
         else
         {
-            //do whatever the enemy has to do with the player
+            StartCoroutine(AttackPlayer());
+        }
+    }
+
+    IEnumerator AttackPlayer()
+    {
+        yield return new WaitForSeconds(attackDelay);
+
+        print("Enemy attack");
+        var attackPlayer = Physics2D.OverlapCircle(_player.position, attackDistance, playerLayer);
+        if (attackPlayer != null)
+        {
+            var damage = attackPlayer.GetComponent<IDamageable>();
+            damage.TakeDamage(1);
         }
     }
 
@@ -78,8 +88,6 @@ public class EnemyAI : MonoBehaviour, IDamageable
 
     public void TakeDamage(int value)
     {
-        print("damage = " + value);
-
         if (_health <= 0)
         {
             //TODO: unsub from update behaviour event
