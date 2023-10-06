@@ -50,8 +50,13 @@ public class Gun : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            StartCoroutine(FireRate());
+            ShootEvent();
         }
+    }
+
+    public void ShootEvent()
+    {
+        StartCoroutine(FireRate());
     }
 
     public void ShootWeapon()
