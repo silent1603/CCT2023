@@ -1,5 +1,5 @@
 using UnityEngine;
-using Utils;
+using Utils.DesignPattern;
 public class AIDirector : Singleton<AIDirector>
 {
 
