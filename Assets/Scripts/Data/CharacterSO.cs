@@ -6,6 +6,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 [CreateAssetMenu(fileName = "New Character Data", menuName = "New Data/New Character Data")]
 public class CharacterSO : ScriptableObject
@@ -17,5 +18,6 @@ public class CharacterSO : ScriptableObject
     public float baseSpeed;
     public float maxSpeed;
     public float acceleration;
+    
 
 }
